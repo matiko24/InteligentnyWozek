@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Inteligentny Wozek</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_shopping_list">Lista zakupów</string>
+    <string name="title_add_product">Dodaj produkt</string>
+    <string name="title_activity_list_view">Lista</string>
+    <string name="title_activity_products_preferences">Ulubione produkty</string>
+
+    <string name="database_name">DataBase</string>
+    <string name="database_version">1</string>
+    <string name="table_products">products</string>
+    <string name="table_shopping_list">lists</string>
+    <string name="table_purchase">purchase</string>
+
+    <string name="key_id">_id</string>
+    <string name="key_name">name</string>
+    <string name="key_list_id">list_id</string>
+    <string name="key_product_id">product_id</string>
+    <string name="key_star">star</string>
+
+</resources>

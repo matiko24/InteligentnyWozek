@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Zakupy">
+        <menu>
+            <item
+                android:id="@+id/nav_shop_list"
+                android:title="Lista zakupów" />
+        </menu>
+    </item>
+
+    <item android:title="Preferencje">
+        <menu>
+            <item
+                android:id="@+id/nav_products"
+                android:title="Produkty" />
+            <item
+                android:id="@+id/nav_shops"
+                android:title="Sklepy" />
+        </menu>
+    </item>
+
+</menu>
