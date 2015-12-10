@@ -9,11 +9,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 /**
@@ -42,7 +39,7 @@ public class PreferencesActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         // TODO: 2015-12-09   Usunięcie floatingActionButtona z widoku preferencji
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAddProduct);
         fab.setVisibility(View.GONE);
 
         productList = (ListView) findViewById(R.id.listsView);

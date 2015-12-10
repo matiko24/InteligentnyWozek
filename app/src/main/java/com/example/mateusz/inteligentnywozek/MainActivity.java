@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,9 +43,9 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //getBaseContext().deleteDatabase("DataBase");
+        //getBaseContext().deleteDatabase(getBaseContext().getString(R.string.database_name));
         final ShoppingListDBAdapter db = new ShoppingListDBAdapter(getBaseContext());
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabAddProduct);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,8 +63,8 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
                 Cursor cursor = adapter.getCursor();
                 Long listId = cursor.getLong(0);
-                intent.putExtra("ListId", listId);
-                intent.putExtra("ListName", cursor.getString(1));
+                intent.putExtra(getBaseContext().getString(R.string.extra_list_id), listId);
+                intent.putExtra(getBaseContext().getString(R.string.extra_list_name), cursor.getString(1));
                 startActivity(intent);
             }
         });
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            Toast.makeText(this, "Jesteś w oknie startowym", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -135,8 +136,8 @@ public class MainActivity extends AppCompatActivity
                         ShoppingList shoppingList = new ShoppingList(listName);
                         db.addList(shoppingList);
                         Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
-                        intent.putExtra("ListId", db.getListId(shoppingList.getName()));
-                        intent.putExtra("ListName", listName);
+                        intent.putExtra(getBaseContext().getString(R.string.extra_list_id), db.getListId(shoppingList.getName()));
+                        intent.putExtra(getBaseContext().getString(R.string.extra_list_name), listName);
                         startActivity(intent);
                     }
                 })

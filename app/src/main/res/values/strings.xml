@@ -7,6 +7,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_shopping_list">Lista zakupów</string>
     <string name="title_add_product">Dodaj produkt</string>
+    <string name="title_activity_choose_shop">Wybierz sklep</string>
     <string name="title_activity_list_view">Lista</string>
     <string name="title_activity_products_preferences">Ulubione produkty</string>
 
@@ -15,11 +16,18 @@
     <string name="table_products">products</string>
     <string name="table_shopping_list">lists</string>
     <string name="table_purchase">purchase</string>
+    <string name="table_shops">shops</string>
 
     <string name="key_id">_id</string>
     <string name="key_name">name</string>
     <string name="key_list_id">list_id</string>
     <string name="key_product_id">product_id</string>
     <string name="key_star">star</string>
+    <string name="key_number_of_purchases">number_of_purchases</string>
+    <string name="last_purchase_date">date</string>
+
+
+    <string name="extra_list_name">listName</string>
+    <string name="extra_list_id">listId</string>
 
 </resources>

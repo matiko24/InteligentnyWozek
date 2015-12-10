@@ -2,7 +2,6 @@ package com.example.mateusz.inteligentnywozek;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +9,11 @@ import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 /**
- * Created by Mateusz on 2015-11-30.
+ * Created by Mateusz on 2015-12-09.
  */
-public class ProductAdapter extends CursorAdapter {
-    public ProductAdapter(Context context, Cursor c) {
-        super(context, c, 0);
+public class ShopAdapter extends CursorAdapter{
+    public ShopAdapter(Context context, Cursor cursor) {
+        super(context, cursor, 0);
     }
 
     @Override
@@ -24,11 +23,9 @@ public class ProductAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        TextView productName = (TextView) view.findViewById(R.id.productName);
-        productName.setText(cursor.getString(1));
-
-        if (cursor.getString(3) != null)
-            Log.d("Product last purchase ", cursor.getString(3));
-
+        TextView shopName = (TextView) view.findViewById(R.id.productName);
+        shopName.setText(cursor.getString(1));
     }
+
+
 }

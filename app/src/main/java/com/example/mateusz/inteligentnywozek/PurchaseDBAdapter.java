@@ -27,7 +27,6 @@ public class PurchaseDBAdapter extends DBAdapter {
     }
 
     public Cursor getAllPurchases() {
-        List<Product> products = new ArrayList<Product>();
         String selectQuery = "SELECT pu." + context.getString(R.string.key_list_id) + ", pr.+" + context.getString(R.string.key_id) + ", pr." + context.getString(R.string.key_name) + " FROM " + context.getString(R.string.table_purchase) + " pu INNER JOIN " + context.getString(R.string.table_products) +
                 " pr ON pu." + context.getString(R.string.key_product_id) + "=pr." + context.getString(R.string.key_id);
         Cursor cursor = db.rawQuery(selectQuery, null);

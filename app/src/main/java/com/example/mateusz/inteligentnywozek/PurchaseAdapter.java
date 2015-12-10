@@ -1,6 +1,7 @@
 package com.example.mateusz.inteligentnywozek;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +38,6 @@ public class PurchaseAdapter extends CursorAdapter{
                 PurchaseDBAdapter db = new PurchaseDBAdapter(context);
                 Purchase purchase = new Purchase(list_id,product_id);
                 db.deletePurchase(purchase);
-                //db = new PurchaseDBAdapter(context);
                 changeCursor(db.getAllPurchases(list_id));
             }
         });

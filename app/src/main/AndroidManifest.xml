@@ -43,6 +43,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <activity
+            android:name=".ShopsActivity"
+            android:label="@string/title_activity_choose_shop"
+            android:parentActivityName=".ShoppingListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ShoppingListActivity" />
+        </activity>
     </application>
 
 </manifest>

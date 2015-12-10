@@ -6,7 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -42,8 +45,7 @@ public class ProductsDBAdapter extends DBAdapter {
         if (begining == "")
             selectQuery = "SELECT  * FROM " + context.getString(R.string.table_products) + " ORDER BY " + context.getString(R.string.key_star) + " DESC";
         else {
-            selectQuery = "SELECT  * FROM " + context.getString(R.string.table_products) + " WHERE name LIKE '" + begining + "%' " + "ORDER BY " + context.getString(R.string.key_star) + " DESC";
-            Log.d("SQL", selectQuery);
+            selectQuery = "SELECT  * FROM " + context.getString(R.string.table_products) + " WHERE " + context.getString(R.string.key_name) + " LIKE '" + begining + "%' " + "ORDER BY " + context.getString(R.string.key_star) + " DESC";
         }
         Cursor cursor = db.rawQuery(selectQuery, null);
         return cursor;
@@ -57,6 +59,16 @@ public class ProductsDBAdapter extends DBAdapter {
         values.put(context.getString(R.string.key_star), stars);
 
         return db.update(context.getString(R.string.table_products), values, context.getString(R.string.key_id) + "= ?", new String[]{String.valueOf(product.getId())});
+    }
+
+    public int updateProduct(Integer id, Date date){
+        ContentValues values = new ContentValues();
+        values.put(context.getString(R.string.key_id), id);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Log.d("updateProduct DBADAPTER", dateFormat.format(date));
+        values.put(context.getString(R.string.last_purchase_date), dateFormat.format(date));
+
+        return db.update(context.getString(R.string.table_products), values, context.getString(R.string.key_id) + "= ?", new String[]{String.valueOf(id)});
     }
 
     public void deleteProduct(Product product) {

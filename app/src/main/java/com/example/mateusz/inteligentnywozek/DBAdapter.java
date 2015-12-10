@@ -40,7 +40,8 @@ public class DBAdapter {
                     "CREATE TABLE " + context.getString(R.string.table_products) + "(" +
                             context.getString(R.string.key_id) + " INTEGER NOT NULL PRIMARY KEY," +
                             context.getString(R.string.key_name) + " TEXT," +
-                            context.getString(R.string.key_star) + " INTEGER DEFAULT 0)";
+                            context.getString(R.string.key_star) + " INTEGER DEFAULT 0," +
+                            context.getString(R.string.last_purchase_date)+ " DATE)";
             db.execSQL(CREATE_PRODUCTS_TABLE);
 
             String CREATE_SHOPPING_LIST_TABLE =
@@ -58,6 +59,15 @@ public class DBAdapter {
                             "FOREIGN KEY (" + context.getString(R.string.key_product_id) + ") REFERENCES " + context.getString(R.string.table_products) + "(" + context.getString(R.string.key_id) + "))";
             db.execSQL(CREATE_PURCHASE_TABLE);
 
+            String CREATE_SHOPS_TABLE =
+                    "CREATE TABLE " + context.getString(R.string.table_shops) + " ("+
+                            context.getString(R.string.key_id) + " INTEGER NOT NULL PRIMARY KEY, "+
+                            context.getString(R.string.key_name) + " TEXT, " +
+                            context.getString(R.string.key_number_of_purchases) +" INTEGER DEFAULT 0)";
+            db.execSQL(CREATE_SHOPS_TABLE);
+
+
+
 
             String products[] = new String[]{"chleb", "mleko", "woda", "jabłko", "jogurt", "bułka", "musli",
                     "banan", "jajka", "kiełbasa", "makaron", "musztarda", "sok",
@@ -68,6 +78,15 @@ public class DBAdapter {
                 values.put(context.getString(R.string.key_name), p.toString());
 
                 db.insert(context.getString(R.string.table_products), null, values);
+            }
+
+            String shops[] = new String[]{"Tesco", "Biedronka", "Real"};
+
+            for (String p : shops) {
+                ContentValues values = new ContentValues();
+                values.put(context.getString(R.string.key_name), p.toString());
+
+                db.insert(context.getString(R.string.table_shops), null, values);
             }
 
             ContentValues values = new ContentValues();
@@ -102,6 +121,8 @@ public class DBAdapter {
 
                 db.insert(context.getString(R.string.table_shopping_list), null, values4);
             }
+
+
         }
 
         @Override

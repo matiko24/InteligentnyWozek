@@ -38,7 +38,6 @@ public class ShoppingListDBAdapter extends DBAdapter {
     }
 
     public Long getListId(String name) {
-        String query = "SELECT  * FROM " + context.getString(R.string.table_shopping_list) + " WHERE " + context.getString(R.string.key_name) + "=" + name;
         Cursor cursor = db.query(context.getString(R.string.table_shopping_list), new String[]{context.getString(R.string.key_id), context.getString(R.string.key_name)}, context.getString(R.string.key_name) + "=?", new String[]{name}, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -46,7 +45,6 @@ public class ShoppingListDBAdapter extends DBAdapter {
     }
 
     public Cursor getAllLists() {
-        List<ShoppingList> shoppingLists = new ArrayList<ShoppingList>();
         String selectQuery = "SELECT  * FROM " + context.getString(R.string.table_shopping_list);
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor != null)

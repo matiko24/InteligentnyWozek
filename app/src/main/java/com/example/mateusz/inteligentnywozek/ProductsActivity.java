@@ -53,15 +53,15 @@ public class ProductsActivity extends AppCompatActivity {
         productList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Long listId = getIntent().getExtras().getLong("ListId");
+                Long listId = getIntent().getExtras().getLong(getBaseContext().getString(R.string.extra_list_id));
                 Cursor cursor = adapter.getCursor();
                 Long productId = cursor.getLong(0);
                 Purchase purchase = new Purchase(listId,productId);
                 purchaseDB.addPurchase(purchase);
 
                 Intent intent = new Intent(ProductsActivity.this,ShoppingListActivity.class);
-                intent.putExtra("ListId",listId);
-                intent.putExtra("ListName", getIntent().getExtras().getString("ListName"));
+                intent.putExtra(getBaseContext().getString(R.string.extra_list_id),listId);
+                intent.putExtra(getBaseContext().getString(R.string.extra_list_name), getIntent().getExtras().getString(getBaseContext().getString(R.string.extra_list_name)));
                 startActivity(intent);
             }
         });
@@ -70,8 +70,8 @@ public class ProductsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this,ShoppingListActivity.class);
-        intent.putExtra("ListId",getIntent().getExtras().getLong("ListId"));
-        intent.putExtra("ListName", getIntent().getExtras().getString("ListName"));
+        intent.putExtra(getBaseContext().getString(R.string.extra_list_id),getIntent().getExtras().getLong(getBaseContext().getString(R.string.extra_list_id)));
+        intent.putExtra(getBaseContext().getString(R.string.extra_list_name), getIntent().getExtras().getString(getBaseContext().getString(R.string.extra_list_name)));
         startActivity(intent);
     }
 
