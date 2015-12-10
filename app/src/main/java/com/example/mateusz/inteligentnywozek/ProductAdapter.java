@@ -28,7 +28,7 @@ public class ProductAdapter extends CursorAdapter {
         productName.setText(cursor.getString(1));
 
         if (cursor.getString(3) != null)
-            Log.d("Product last purchase ", cursor.getString(3));
+            Log.d("Product details ", cursor.getString(0)+" " +cursor.getString(1)+" "+cursor.getString(2)+" "+cursor.getString(3)+" "+cursor.getString(4));
 
     }
 }

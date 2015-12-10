@@ -24,7 +24,8 @@
     <string name="key_product_id">product_id</string>
     <string name="key_star">star</string>
     <string name="key_number_of_purchases">number_of_purchases</string>
-    <string name="last_purchase_date">date</string>
+    <string name="key_last_purchase_date">dateLastPurchase</string>
+    <string name="key_next_purchase_date">dateNextPurchase</string>
 
 
     <string name="extra_list_name">listName</string>

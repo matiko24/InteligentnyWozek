@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 /**
  * Created by Mateusz on 2015-11-28.
@@ -41,7 +40,8 @@ public class DBAdapter {
                             context.getString(R.string.key_id) + " INTEGER NOT NULL PRIMARY KEY," +
                             context.getString(R.string.key_name) + " TEXT," +
                             context.getString(R.string.key_star) + " INTEGER DEFAULT 0," +
-                            context.getString(R.string.last_purchase_date)+ " DATE)";
+                            context.getString(R.string.key_last_purchase_date)+ " DATE DEFAULT '2015-12-01', " +
+                            context.getString(R.string.key_next_purchase_date)+ " DATE)";
             db.execSQL(CREATE_PRODUCTS_TABLE);
 
             String CREATE_SHOPPING_LIST_TABLE =

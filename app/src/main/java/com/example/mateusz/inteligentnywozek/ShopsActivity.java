@@ -7,11 +7,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ShopsActivity extends AppCompatActivity {
@@ -35,26 +39,36 @@ public class ShopsActivity extends AppCompatActivity {
         shopsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Cursor cursor = (Cursor)parent.getItemAtPosition(position);
+                Cursor cursor = (Cursor) parent.getItemAtPosition(position);
                 String s = cursor.getString(1);
                 db.updateShop(s);
 
                 PurchaseDBAdapter db = new PurchaseDBAdapter(getBaseContext());
                 cursor = db.getAllPurchases(listId);
-                if(cursor != null)
+                if (cursor != null)
                     cursor.moveToFirst();
                 ProductsDBAdapter productDB = new ProductsDBAdapter(getBaseContext());
-                for(int i=0;i<cursor.getCount();i++){
-                    productDB.updateProduct(cursor.getInt(1),new Date());
-                    cursor.moveToNext();
-                }
+                Date currentDate = new Date();
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                for (int i = 0; i < cursor.getCount(); i++) {
+                    try {
+                        Date lastPurchaseDate = dateFormat.parse(productDB.getProductLastPurchaseDate(cursor.getLong(1)));
+                        Date nextPurchaseDate = new Date(currentDate.getTime() + (currentDate.getTime() - lastPurchaseDate.getTime()));
+                        productDB.updateProduct(cursor.getInt(1), currentDate, nextPurchaseDate);
+                        cursor.moveToNext();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
 
-                Intent intent = new Intent(ShopsActivity.this, MainActivity.class);
-                startActivity(intent);
+                    Intent intent = new Intent(ShopsActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
+
         productName = (EditText) findViewById(R.id.productToAddName);
+
         productName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

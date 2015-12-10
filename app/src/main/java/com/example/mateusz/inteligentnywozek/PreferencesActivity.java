@@ -44,7 +44,7 @@ public class PreferencesActivity extends AppCompatActivity
 
         productList = (ListView) findViewById(R.id.listsView);
         ProductsDBAdapter db = new ProductsDBAdapter(getBaseContext());
-        PreferencesAdapter adapter = new PreferencesAdapter(this,db.getAllProducts(""));
+        PreferencesAdapter adapter = new PreferencesAdapter(this,db.getAllProductsSortOnlyByStar(""));
         productList.setAdapter(adapter);
 
     }

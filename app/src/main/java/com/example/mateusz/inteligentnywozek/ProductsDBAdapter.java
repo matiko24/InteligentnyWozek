@@ -1,5 +1,6 @@
 package com.example.mateusz.inteligentnywozek;
 
+import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -8,9 +9,7 @@ import android.util.Log;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by Mateusz on 2015-11-28.
@@ -30,22 +29,33 @@ public class ProductsDBAdapter extends DBAdapter {
         db.insert(context.getString(R.string.table_products), null, values);
     }
 
-    public Long getProductId(String name) {
+    public String getProductLastPurchaseDate(Long id) {
         Cursor cursor = db.query(context.getString(R.string.table_products), new String[]{context.getString(R.string.key_id),
-                        context.getString(R.string.key_name)}, context.getString(R.string.key_name) + "=?",
-                new String[]{String.valueOf(name)}, null, null, null, null);
+                        context.getString(R.string.key_name), context.getString(R.string.key_star), context.getString(R.string.key_last_purchase_date), context.getString(R.string.key_next_purchase_date)}, context.getString(R.string.key_id) + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
-        return Long.parseLong(cursor.getString(0));
+        return cursor.getString(3);
+    }
+
+    public Cursor getAllProductsSortOnlyByStar(String begining) {
+        String selectQuery;
+        if (begining == "")
+            selectQuery = "SELECT  * FROM " + context.getString(R.string.table_products) + " ORDER BY " + context.getString(R.string.key_star) + " DESC";
+        else {
+            selectQuery = "SELECT  * FROM " + context.getString(R.string.table_products) + " WHERE " + context.getString(R.string.key_name) + " LIKE '" + begining + "%' " + " ORDER BY " + context.getString(R.string.key_star) + " DESC";
+        }
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        return cursor;
     }
 
     public Cursor getAllProducts(String begining) {
         String selectQuery;
         if (begining == "")
-            selectQuery = "SELECT  * FROM " + context.getString(R.string.table_products) + " ORDER BY " + context.getString(R.string.key_star) + " DESC";
+            selectQuery = "SELECT  * FROM " + context.getString(R.string.table_products) + " ORDER BY CASE WHEN " + context.getString(R.string.key_next_purchase_date) + " IS NULL THEN 1 ELSE 0 END, " + context.getString(R.string.key_next_purchase_date) + "," + context.getString(R.string.key_star) + " DESC";
         else {
-            selectQuery = "SELECT  * FROM " + context.getString(R.string.table_products) + " WHERE " + context.getString(R.string.key_name) + " LIKE '" + begining + "%' " + "ORDER BY " + context.getString(R.string.key_star) + " DESC";
+            selectQuery = "SELECT  * FROM " + context.getString(R.string.table_products) + " WHERE " + context.getString(R.string.key_name) + " LIKE '" + begining + "%' " + " ORDER BY CASE WHEN " + context.getString(R.string.key_next_purchase_date) + " IS NULL THEN 1 ELSE 0 END, " + context.getString(R.string.key_next_purchase_date) + "," + context.getString(R.string.key_star) + " DESC";
         }
         Cursor cursor = db.rawQuery(selectQuery, null);
         return cursor;
@@ -61,12 +71,12 @@ public class ProductsDBAdapter extends DBAdapter {
         return db.update(context.getString(R.string.table_products), values, context.getString(R.string.key_id) + "= ?", new String[]{String.valueOf(product.getId())});
     }
 
-    public int updateProduct(Integer id, Date date){
+    public int updateProduct(Integer id, Date lastPurchaseDate, Date nextPurchaseDate) {
         ContentValues values = new ContentValues();
         values.put(context.getString(R.string.key_id), id);
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Log.d("updateProduct DBADAPTER", dateFormat.format(date));
-        values.put(context.getString(R.string.last_purchase_date), dateFormat.format(date));
+        values.put(context.getString(R.string.key_last_purchase_date), dateFormat.format(lastPurchaseDate));
+        values.put(context.getString(R.string.key_next_purchase_date), dateFormat.format(nextPurchaseDate));
 
         return db.update(context.getString(R.string.table_products), values, context.getString(R.string.key_id) + "= ?", new String[]{String.valueOf(id)});
     }
