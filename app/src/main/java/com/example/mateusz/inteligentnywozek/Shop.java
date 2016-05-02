@@ -31,10 +31,6 @@ public class Shop {
         this.numberOfPurchases = numberOfPurchases;
     }
 
-    public Shop(String name) {
-        this.name = name;
-    }
-
     public String getName() {
 
         return name;

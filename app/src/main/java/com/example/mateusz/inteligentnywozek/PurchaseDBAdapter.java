@@ -26,14 +26,6 @@ public class PurchaseDBAdapter extends DBAdapter {
         db.insert(context.getString(R.string.table_purchase), null, values);
     }
 
-    public Cursor getAllPurchases() {
-        String selectQuery = "SELECT pu." + context.getString(R.string.key_list_id) + ", pr.+" + context.getString(R.string.key_id) + ", pr." + context.getString(R.string.key_name) + " FROM " + context.getString(R.string.table_purchase) + " pu INNER JOIN " + context.getString(R.string.table_products) +
-                " pr ON pu." + context.getString(R.string.key_product_id) + "=pr." + context.getString(R.string.key_id);
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        return cursor;
-    }
-
     public Cursor getAllPurchases(Long listId) {
         String selectQuery = "SELECT pu." + context.getString(R.string.key_list_id) + ", pr." + context.getString(R.string.key_id) + ", pr." + context.getString(R.string.key_name) + " FROM " + context.getString(R.string.table_purchase) + " pu INNER JOIN " + context.getString(R.string.table_products) +
                 " pr ON pu." + context.getString(R.string.key_product_id) + "=pr." + context.getString(R.string.key_id) +

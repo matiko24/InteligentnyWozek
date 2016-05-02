@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mateusz.inteligentnywozek">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -35,7 +37,7 @@
                 android:value=".ShoppingListActivity" />
         </activity>
         <activity
-            android:name=".PreferencesActivity"
+            android:name=".ProductsPreferencesActivity"
             android:label="@string/title_activity_products_preferences"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -51,6 +53,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ShoppingListActivity" />
         </activity>
+        <activity android:name=".ShopsPreferencesActivity"></activity>
     </application>
 
 </manifest>

@@ -9,13 +9,6 @@ public class Product {
 
     private long id;
     private String name;
-    private Date date;
-
-    public Product(long id, String name, Date date) {
-        this.id = id;
-        this.name = name;
-        this.date = date;
-    }
 
     public Product(long id, String name) {
         this.name = name;
@@ -24,15 +17,6 @@ public class Product {
 
     public Product(String name) {
         this.name = name;
-    }
-
-    public Date getDate() {
-
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public String getName() {

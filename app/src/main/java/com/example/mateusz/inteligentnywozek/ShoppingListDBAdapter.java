@@ -27,16 +27,6 @@ public class ShoppingListDBAdapter extends DBAdapter {
         db.insert(context.getString(R.string.table_shopping_list), null, values);
     }
 
-    public ShoppingList getList(String name) {
-        String query = "SELECT  * FROM " + context.getString(R.string.table_shopping_list) + " WHERE " + context.getString(R.string.key_name) + "=" + name;
-        Cursor cursor = db.rawQuery(query, null);
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        ShoppingList shoppingList = new ShoppingList(cursor.getInt(0), cursor.getString(1));
-        return shoppingList;
-    }
-
     public Long getListId(String name) {
         Cursor cursor = db.query(context.getString(R.string.table_shopping_list), new String[]{context.getString(R.string.key_id), context.getString(R.string.key_name)}, context.getString(R.string.key_name) + "=?", new String[]{name}, null, null, null);
         if (cursor != null)
@@ -51,15 +41,6 @@ public class ShoppingListDBAdapter extends DBAdapter {
             cursor.moveToFirst();
 
         return cursor;
-    }
-
-    public int updateList(ShoppingList shoppingList) {
-
-        ContentValues values = new ContentValues();
-        values.put(context.getString(R.string.key_name), shoppingList.getName());
-
-        return db.update(context.getString(R.string.table_shopping_list), values, context.getString(R.string.key_id) + " = ?",
-                new String[]{String.valueOf(shoppingList.getId())});
     }
 
     public void deleteList(ShoppingList shoppingList) {

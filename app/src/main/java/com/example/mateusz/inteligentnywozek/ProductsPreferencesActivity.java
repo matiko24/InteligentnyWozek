@@ -16,7 +16,7 @@ import android.widget.ListView;
 /**
  * Created by Mateusz on 2015-11-30.
  */
-public class PreferencesActivity extends AppCompatActivity
+public class ProductsPreferencesActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     ListView productList;
@@ -44,7 +44,7 @@ public class PreferencesActivity extends AppCompatActivity
 
         productList = (ListView) findViewById(R.id.listsView);
         ProductsDBAdapter db = new ProductsDBAdapter(getBaseContext());
-        PreferencesAdapter adapter = new PreferencesAdapter(this,db.getAllProductsSortOnlyByStar(""));
+        ProductsPreferencesAdapter adapter = new ProductsPreferencesAdapter(this,db.getAllProductsSortOnlyByStar(""));
         productList.setAdapter(adapter);
 
     }
@@ -54,7 +54,7 @@ public class PreferencesActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_shop_list) {
-            Intent intent = new Intent(PreferencesActivity.this,MainActivity.class);
+            Intent intent = new Intent(ProductsPreferencesActivity.this,MainActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_products) {
             finish();

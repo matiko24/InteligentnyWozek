@@ -12,9 +12,9 @@ import android.widget.TextView;
 /**
  * Created by Mateusz on 2015-11-30.
  */
-public class PreferencesAdapter extends CursorAdapter {
+public class ProductsPreferencesAdapter extends CursorAdapter {
     ProductsDBAdapter db;
-    public PreferencesAdapter(Context context, Cursor c) {
+    public ProductsPreferencesAdapter(Context context, Cursor c) {
 
         super(context, c, 0);
         db = new ProductsDBAdapter(context);

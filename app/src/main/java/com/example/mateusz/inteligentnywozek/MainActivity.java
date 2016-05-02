@@ -111,9 +111,12 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_shop_list) {
             // Handle the camera action
         } else if (id == R.id.nav_products) {
-            Intent intent = new Intent(MainActivity.this,PreferencesActivity.class);
+            Intent intent = new Intent(MainActivity.this,ProductsPreferencesActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_shops) {}
+        } else if (id == R.id.nav_shops) {
+            Intent intent = new Intent(MainActivity.this,ShopsPreferencesActivity.class);
+            startActivity(intent);
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

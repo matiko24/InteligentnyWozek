@@ -24,10 +24,6 @@ public class ShoppingList {
         this.name = name;
     }
 
-    public ShoppingList(long id) {
-        this.id = id;
-    }
-
     public long getId() {
         return id;
     }
