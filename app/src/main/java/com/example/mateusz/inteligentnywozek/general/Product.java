@@ -1,18 +1,21 @@
-package com.example.mateusz.inteligentnywozek;
+package com.example.mateusz.inteligentnywozek.general;
+
+import java.util.Date;
 
 /**
- * Created by Mateusz on 2015-11-28.
+ * Created by Mateusz on 2015-11-25.
  */
-public class ShoppingList {
-    long id;
-    String name;
+public class Product {
 
-    public ShoppingList(String name) {
+    private long id;
+    private String name;
+
+    public Product(long id, String name) {
         this.name = name;
+        this.id = id;
     }
 
-    public ShoppingList(long id, String name) {
-        this.id = id;
+    public Product(String name) {
         this.name = name;
     }
 

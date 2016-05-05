@@ -1,4 +1,4 @@
-package com.example.mateusz.inteligentnywozek;
+package com.example.mateusz.inteligentnywozek.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
+
+import com.example.mateusz.inteligentnywozek.R;
 
 /**
  * Created by Mateusz on 2015-12-09.

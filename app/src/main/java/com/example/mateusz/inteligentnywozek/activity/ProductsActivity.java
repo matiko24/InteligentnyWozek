@@ -1,4 +1,4 @@
-package com.example.mateusz.inteligentnywozek;
+package com.example.mateusz.inteligentnywozek.activity;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -10,6 +10,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import com.example.mateusz.inteligentnywozek.adapter.ProductAdapter;
+import com.example.mateusz.inteligentnywozek.database.ProductDBAdapter;
+import com.example.mateusz.inteligentnywozek.general.Purchase;
+import com.example.mateusz.inteligentnywozek.database.PurchaseDBAdapter;
+import com.example.mateusz.inteligentnywozek.R;
 
 
 public class ProductsActivity extends AppCompatActivity {
@@ -23,7 +29,7 @@ public class ProductsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
 
-        final ProductsDBAdapter db = new ProductsDBAdapter(getBaseContext());
+        final ProductDBAdapter db = new ProductDBAdapter(getBaseContext());
         final PurchaseDBAdapter purchaseDB = new PurchaseDBAdapter(getBaseContext());
         productList = (ListView) findViewById(R.id.productList);
 
@@ -59,7 +65,7 @@ public class ProductsActivity extends AppCompatActivity {
                 Purchase purchase = new Purchase(listId,productId);
                 purchaseDB.addPurchase(purchase);
 
-                Intent intent = new Intent(ProductsActivity.this,ShoppingListActivity.class);
+                Intent intent = new Intent(ProductsActivity.this,ShoppingListsActivity.class);
                 intent.putExtra(getBaseContext().getString(R.string.extra_list_id),listId);
                 intent.putExtra(getBaseContext().getString(R.string.extra_list_name), getIntent().getExtras().getString(getBaseContext().getString(R.string.extra_list_name)));
                 startActivity(intent);
@@ -69,7 +75,7 @@ public class ProductsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this,ShoppingListActivity.class);
+        Intent intent = new Intent(this,ShoppingListsActivity.class);
         intent.putExtra(getBaseContext().getString(R.string.extra_list_id),getIntent().getExtras().getLong(getBaseContext().getString(R.string.extra_list_id)));
         intent.putExtra(getBaseContext().getString(R.string.extra_list_name), getIntent().getExtras().getString(getBaseContext().getString(R.string.extra_list_name)));
         startActivity(intent);

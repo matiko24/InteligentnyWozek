@@ -1,4 +1,4 @@
-package com.example.mateusz.inteligentnywozek;
+package com.example.mateusz.inteligentnywozek.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+
+import com.example.mateusz.inteligentnywozek.database.ProductDBAdapter;
+import com.example.mateusz.inteligentnywozek.adapter.ProductPreferenceAdapter;
+import com.example.mateusz.inteligentnywozek.R;
 
 /**
  * Created by Mateusz on 2015-11-30.
@@ -43,8 +47,8 @@ public class ProductsPreferencesActivity extends AppCompatActivity
         fab.setVisibility(View.GONE);
 
         productList = (ListView) findViewById(R.id.listsView);
-        ProductsDBAdapter db = new ProductsDBAdapter(getBaseContext());
-        ProductsPreferencesAdapter adapter = new ProductsPreferencesAdapter(this,db.getAllProductsSortOnlyByStar(""));
+        ProductDBAdapter db = new ProductDBAdapter(getBaseContext());
+        ProductPreferenceAdapter adapter = new ProductPreferenceAdapter(this,db.getAllProductsSortOnlyByStar(""));
         productList.setAdapter(adapter);
 
     }

@@ -1,12 +1,13 @@
-package com.example.mateusz.inteligentnywozek;
+package com.example.mateusz.inteligentnywozek.database;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.mateusz.inteligentnywozek.general.Purchase;
+import com.example.mateusz.inteligentnywozek.R;
+import com.example.mateusz.inteligentnywozek.general.ShoppingList;
 
 /**
  * Created by Mateusz on 2015-11-29.
@@ -18,7 +19,7 @@ public class PurchaseDBAdapter extends DBAdapter {
         super(context);
     }
 
-    void addPurchase(Purchase purchase) {
+    public void addPurchase(Purchase purchase) {
         ContentValues values = new ContentValues();
         values.put(context.getString(R.string.key_list_id), purchase.getList_id());
         values.put(context.getString(R.string.key_product_id), purchase.getProduct_id());

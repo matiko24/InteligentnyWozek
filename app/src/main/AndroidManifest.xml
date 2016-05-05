@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/title_activity_shopping_list"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -21,39 +21,39 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ShoppingListActivity"
+            android:name=".activity.ShoppingListsActivity"
             android:label="@string/title_activity_list_view"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.mateusz.inteligentnywozek.MainActivity" />
+                android:value=".activity.MainActivity" />
         </activity>
         <activity
-            android:name=".ProductsActivity"
+            android:name=".activity.ProductsActivity"
             android:label="@string/title_add_product"
-            android:parentActivityName=".ShoppingListActivity">
+            android:parentActivityName=".activity.ShoppingListsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ShoppingListActivity" />
+                android:value=".activity.ShoppingListsActivity" />
         </activity>
         <activity
-            android:name=".ProductsPreferencesActivity"
+            android:name=".activity.ProductsPreferencesActivity"
             android:label="@string/title_activity_products_preferences"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".activity.MainActivity" />
         </activity>
         <activity
-            android:name=".ShopsActivity"
+            android:name=".activity.ShopsActivity"
             android:label="@string/title_activity_choose_shop"
-            android:parentActivityName=".ShoppingListActivity">
+            android:parentActivityName=".activity.ShoppingListsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ShoppingListActivity" />
+                android:value=".activity.ShoppingListsActivity" />
         </activity>
-        <activity android:name=".ShopsPreferencesActivity"></activity>
+        <activity android:name=".activity.ShopsPreferencesActivity"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.mateusz.inteligentnywozek;
+package com.example.mateusz.inteligentnywozek.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
 
-public class ShoppingListActivity extends AppCompatActivity {
+import com.example.mateusz.inteligentnywozek.adapter.PurchaseAdapter;
+import com.example.mateusz.inteligentnywozek.database.PurchaseDBAdapter;
+import com.example.mateusz.inteligentnywozek.R;
+
+public class ShoppingListsActivity extends AppCompatActivity {
 
     ListView productsList;
     PurchaseAdapter adapter;
@@ -23,7 +27,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         fabAddProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ShoppingListActivity.this, ProductsActivity.class);
+                Intent intent = new Intent(ShoppingListsActivity.this, ProductsActivity.class);
                 intent.putExtra(getBaseContext().getString(R.string.extra_list_id), listId);
                 intent.putExtra(getBaseContext().getString(R.string.extra_list_name), listName);
                 startActivity(intent);
@@ -39,7 +43,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         fabChooseShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ShoppingListActivity.this, ShopsActivity.class);
+                Intent intent = new Intent(ShoppingListsActivity.this, ShopsActivity.class);
                 intent.putExtra(getBaseContext().getString(R.string.extra_list_id),listId);
                 intent.putExtra(getBaseContext().getString(R.string.extra_list_name),listName);
                 startActivity(intent);

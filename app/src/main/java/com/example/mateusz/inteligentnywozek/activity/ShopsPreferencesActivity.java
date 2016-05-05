@@ -1,11 +1,11 @@
-package com.example.mateusz.inteligentnywozek;
+package com.example.mateusz.inteligentnywozek.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mateusz.inteligentnywozek.R;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -28,7 +28,7 @@ public class ShopsPreferencesActivity extends AppCompatActivity {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("http://10.0.3.2:8080/Serwer/crunchify/ftocservice/products?shop=123&ids=id1;id3;XXX")
+                .url("http://10.0.3.2:8080/Serwer/map/products?shop=123&ids=id1;id3;XXX")
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -40,12 +40,13 @@ public class ShopsPreferencesActivity extends AppCompatActivity {
             @Override
             public void onResponse(final Response response) throws IOException {
 
+                //TODO Usunąć zwracane przez serwer "a" przed JSONem
                 String responseData = response.body().string().substring(1);
                 JSONObject json = null;
                 try {
                     json = new JSONObject(responseData);
-                    String shopId = json.getString("ShopId");
                     String result = json.getString("Result");
+                    String shopId = json.getString("ShopId");
                     System.out.println("Result: " + result);
                     System.out.println("ShopId: " + shopId);
                 } catch (JSONException e) {

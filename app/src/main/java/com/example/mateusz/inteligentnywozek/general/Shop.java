@@ -1,4 +1,4 @@
-package com.example.mateusz.inteligentnywozek;
+package com.example.mateusz.inteligentnywozek.general;
 
 /**
  * Created by Mateusz on 2015-12-09.

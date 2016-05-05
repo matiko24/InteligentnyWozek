@@ -1,4 +1,4 @@
-package com.example.mateusz.inteligentnywozek;
+package com.example.mateusz.inteligentnywozek.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +20,11 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.mateusz.inteligentnywozek.R;
+import com.example.mateusz.inteligentnywozek.general.ShoppingList;
+import com.example.mateusz.inteligentnywozek.adapter.ShoppingListAdapter;
+import com.example.mateusz.inteligentnywozek.database.ShoppingListDBAdapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -60,7 +65,7 @@ public class MainActivity extends AppCompatActivity
         lists.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
+                Intent intent = new Intent(MainActivity.this, ShoppingListsActivity.class);
                 Cursor cursor = adapter.getCursor();
                 Long listId = cursor.getLong(0);
                 intent.putExtra(getBaseContext().getString(R.string.extra_list_id), listId);
@@ -138,7 +143,7 @@ public class MainActivity extends AppCompatActivity
                         String listName = editText.getText().toString();
                         ShoppingList shoppingList = new ShoppingList(listName);
                         db.addList(shoppingList);
-                        Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
+                        Intent intent = new Intent(MainActivity.this, ShoppingListsActivity.class);
                         intent.putExtra(getBaseContext().getString(R.string.extra_list_id), db.getListId(shoppingList.getName()));
                         intent.putExtra(getBaseContext().getString(R.string.extra_list_name), listName);
                         startActivity(intent);

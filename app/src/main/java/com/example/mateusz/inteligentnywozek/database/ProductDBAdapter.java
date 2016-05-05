@@ -1,11 +1,12 @@
-package com.example.mateusz.inteligentnywozek;
+package com.example.mateusz.inteligentnywozek.database;
 
-import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
+
+import com.example.mateusz.inteligentnywozek.general.Product;
+import com.example.mateusz.inteligentnywozek.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -14,11 +15,11 @@ import java.util.Date;
 /**
  * Created by Mateusz on 2015-11-28.
  */
-public class ProductsDBAdapter extends DBAdapter {
+public class ProductDBAdapter extends DBAdapter {
 
     protected SQLiteDatabase db = openDb();
 
-    public ProductsDBAdapter(Context context) {
+    public ProductDBAdapter(Context context) {
         super(context);
     }
 

@@ -1,9 +1,12 @@
-package com.example.mateusz.inteligentnywozek;
+package com.example.mateusz.inteligentnywozek.database;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.example.mateusz.inteligentnywozek.R;
+import com.example.mateusz.inteligentnywozek.general.Shop;
 
 /**
  * Created by Mateusz on 2015-12-09.

@@ -1,9 +1,11 @@
-package com.example.mateusz.inteligentnywozek;
+package com.example.mateusz.inteligentnywozek.database;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.mateusz.inteligentnywozek.R;
 
 /**
  * Created by Mateusz on 2015-11-28.

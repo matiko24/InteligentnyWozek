@@ -1,13 +1,12 @@
-package com.example.mateusz.inteligentnywozek;
+package com.example.mateusz.inteligentnywozek.database;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.mateusz.inteligentnywozek.R;
+import com.example.mateusz.inteligentnywozek.general.ShoppingList;
 
 /**
  * Created by Mateusz on 2015-11-29.
@@ -20,7 +19,7 @@ public class ShoppingListDBAdapter extends DBAdapter {
         super(context);
     }
 
-    void addList(ShoppingList list) {
+    public void addList(ShoppingList list) {
         ContentValues values = new ContentValues();
         values.put(context.getString(R.string.key_name), list.getName());
 

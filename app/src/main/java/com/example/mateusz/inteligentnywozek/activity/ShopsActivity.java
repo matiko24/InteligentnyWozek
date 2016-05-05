@@ -1,17 +1,21 @@
-package com.example.mateusz.inteligentnywozek;
+package com.example.mateusz.inteligentnywozek.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import com.example.mateusz.inteligentnywozek.database.ProductDBAdapter;
+import com.example.mateusz.inteligentnywozek.database.PurchaseDBAdapter;
+import com.example.mateusz.inteligentnywozek.R;
+import com.example.mateusz.inteligentnywozek.adapter.ShopAdapter;
+import com.example.mateusz.inteligentnywozek.database.ShopDBAdapter;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -47,7 +51,7 @@ public class ShopsActivity extends AppCompatActivity {
                 cursor = db.getAllPurchases(listId);
                 if (cursor != null)
                     cursor.moveToFirst();
-                ProductsDBAdapter productDB = new ProductsDBAdapter(getBaseContext());
+                ProductDBAdapter productDB = new ProductDBAdapter(getBaseContext());
                 Date currentDate = new Date();
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 for (int i = 0; i < cursor.getCount(); i++) {
