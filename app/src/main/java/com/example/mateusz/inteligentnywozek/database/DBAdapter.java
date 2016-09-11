@@ -71,9 +71,14 @@ public class DBAdapter {
 
 
 
-            String products[] = new String[]{"chleb", "mleko", "woda", "jabłko", "jogurt", "bułka", "musli",
+            /*String products[] = new String[]{"chleb", "mleko", "woda", "jabłko", "jogurt", "bułka", "musli",
                     "banan", "jajka", "kiełbasa", "makaron", "musztarda", "sok",
-                    "ryba", "mąka", "ser", "kefir", "orzeszki", "pomidory", "ogórki"};
+                    "ryba", "mąka", "ser", "kefir", "orzeszki", "pomidory", "ogórki"};*/
+
+            String products[] = new String[120];
+            for (int i = 1; i <= 120; i++) {
+                products[i - 1] = String.valueOf(i);
+            }
 
             for (String p : products) {
                 ContentValues values = new ContentValues();

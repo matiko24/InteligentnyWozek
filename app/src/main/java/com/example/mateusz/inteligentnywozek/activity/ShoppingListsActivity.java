@@ -15,6 +15,7 @@ public class ShoppingListsActivity extends AppCompatActivity {
 
     ListView productsList;
     PurchaseAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +35,7 @@ public class ShoppingListsActivity extends AppCompatActivity {
             }
         });
 
-        PurchaseDBAdapter db = new PurchaseDBAdapter(getBaseContext());
+        final PurchaseDBAdapter db = new PurchaseDBAdapter(getBaseContext());
         productsList = (ListView) findViewById(R.id.productListView);
         adapter = new PurchaseAdapter(this, db.getAllPurchases(listId));
         productsList.setAdapter(adapter);
@@ -44,8 +45,10 @@ public class ShoppingListsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ShoppingListsActivity.this, ShopsActivity.class);
-                intent.putExtra(getBaseContext().getString(R.string.extra_list_id),listId);
-                intent.putExtra(getBaseContext().getString(R.string.extra_list_name),listName);
+                intent.putExtra(getBaseContext().getString(R.string.extra_list_id), listId);
+                intent.putExtra(getBaseContext().getString(R.string.extra_list_name), listName);
+                String productsIds = db.getAllPurchasesString(listId);
+                intent.putExtra(getBaseContext().getString(R.string.extra_products_ids), productsIds);
                 startActivity(intent);
             }
         });

@@ -34,7 +34,8 @@ public class ShopsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_product);
 
         final Long listId = getIntent().getExtras().getLong(getBaseContext().getString(R.string.extra_list_id));
-        String listName = getIntent().getExtras().getString(getBaseContext().getString(R.string.extra_list_name));
+        final String listName = getIntent().getExtras().getString(getBaseContext().getString(R.string.extra_list_name));
+        final String productsIds = getIntent().getExtras().getString(getBaseContext().getString(R.string.extra_products_ids));
 
         shopsList = (ListView) findViewById(R.id.productList);
         final ShopDBAdapter db = new ShopDBAdapter(this);
@@ -64,7 +65,10 @@ public class ShopsActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    Intent intent = new Intent(ShopsActivity.this, MainActivity.class);
+                    Intent intent = new Intent(ShopsActivity.this, NavigationActivity.class);
+                    intent.putExtra(getBaseContext().getString(R.string.extra_list_id), listId);
+                    intent.putExtra(getBaseContext().getString(R.string.extra_list_name), listName);
+                    intent.putExtra(getBaseContext().getString(R.string.extra_products_ids), productsIds);
                     startActivity(intent);
                 }
             }

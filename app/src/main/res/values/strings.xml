@@ -30,5 +30,7 @@
 
     <string name="extra_list_name">listName</string>
     <string name="extra_list_id">listId</string>
+    <string name="title_activity_navigation">Droga</string>
+    <string name="extra_products_ids">productsIds</string>
 
 </resources>

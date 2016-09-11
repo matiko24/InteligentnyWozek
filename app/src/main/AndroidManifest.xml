@@ -53,7 +53,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.ShoppingListsActivity" />
         </activity>
-        <activity android:name=".activity.ShopsPreferencesActivity"></activity>
+        <activity android:name=".activity.ShopsPreferencesActivity" />
+        <activity
+            android:name=".activity.NavigationActivity"
+            android:label="@string/title_activity_navigation"
+            android:parentActivityName=".activity.ShoppingListsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mateusz.inteligentnywozek.activity.ShoppingListsActivity" />
+        </activity>
     </application>
 
 </manifest>

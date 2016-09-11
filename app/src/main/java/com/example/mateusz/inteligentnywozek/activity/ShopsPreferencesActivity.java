@@ -25,35 +25,5 @@ public class ShopsPreferencesActivity extends AppCompatActivity {
 
         final TextView textView = (TextView) findViewById(R.id.getText);
 
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                .url("http://10.0.3.2:8080/Serwer/map/products?shop=123&ids=id1;id3;XXX")
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Request request, IOException e) {
-                Toast.makeText(ShopsPreferencesActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onResponse(final Response response) throws IOException {
-
-                //TODO Usunąć zwracane przez serwer "a" przed JSONem
-                String responseData = response.body().string().substring(1);
-                JSONObject json = null;
-                try {
-                    json = new JSONObject(responseData);
-                    String result = json.getString("Result");
-                    String shopId = json.getString("ShopId");
-                    System.out.println("Result: " + result);
-                    System.out.println("ShopId: " + shopId);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
     }
 }
