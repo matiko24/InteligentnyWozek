@@ -65,7 +65,9 @@ public class DBAdapter {
                     "CREATE TABLE " + context.getString(R.string.table_shops) + " ("+
                             context.getString(R.string.key_id) + " INTEGER NOT NULL PRIMARY KEY, "+
                             context.getString(R.string.key_name) + " TEXT, " +
-                            context.getString(R.string.key_number_of_purchases) +" INTEGER DEFAULT 0)";
+                            context.getString(R.string.key_number_of_purchases) +" INTEGER DEFAULT 0," +
+                            "column_number INTEGER NOT NULL," +
+                            "row_number INTEGER NOT NULL)";
             db.execSQL(CREATE_SHOPS_TABLE);
 
             /*String products[] = new String[]{"chleb", "mleko", "woda", "jabłko", "jogurt", "bułka", "musli",
@@ -84,16 +86,20 @@ public class DBAdapter {
                 db.insert(context.getString(R.string.table_products), null, values);
             }
 
-            String shops[] = new String[]{"Biedronka", "Tesco"};
-
-            for (String p : shops) {
-                ContentValues values = new ContentValues();
-                values.put(context.getString(R.string.key_name), p.toString());
-
-                db.insert(context.getString(R.string.table_shops), null, values);
-            }
-
             ContentValues values = new ContentValues();
+            values.put(context.getString(R.string.key_name), "Biedronka 2x20");
+            values.put("column_number","20");
+            values.put("row_number","2");
+            db.insert(context.getString(R.string.table_shops), null, values);
+
+            values = new ContentValues();
+            values.put(context.getString(R.string.key_name), "Lewiatan 3x10");
+            values.put("column_number","10");
+            values.put("row_number","3");
+            db.insert(context.getString(R.string.table_shops), null, values);
+
+
+            values = new ContentValues();
             ContentValues values1 = new ContentValues();
             ContentValues values2 = new ContentValues();
             ContentValues values3 = new ContentValues();

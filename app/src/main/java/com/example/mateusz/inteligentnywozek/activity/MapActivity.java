@@ -46,8 +46,6 @@ public class MapActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        final int columnNumber = 4;
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         Display display = getWindowManager().getDefaultDisplay();
@@ -57,6 +55,8 @@ public class MapActivity extends AppCompatActivity {
         screenSizeWidth = size.x;
 
         final Long shopId = getIntent().getExtras().getLong(getBaseContext().getString(R.string.extra_shop_id));
+        final int columnNumber = getIntent().getExtras().getInt(getBaseContext().getString(R.string.extra_column_number));
+        final int rowNumber = getIntent().getExtras().getInt(getBaseContext().getString(R.string.extra_row_number));
         final Long listId = getIntent().getExtras().getLong(getBaseContext().getString(R.string.extra_list_id));
         final String listName = getIntent().getExtras().getString(getBaseContext().getString(R.string.extra_list_name));
         final String productsIds = getIntent().getExtras().getString(getBaseContext().getString(R.string.extra_products_ids));
@@ -68,7 +68,7 @@ public class MapActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(this, R.layout.row_product_on_map, lst);
         productList.setAdapter(adapter);
 
-        drawShelfs(columnNumber, 2);
+        drawShelfs(columnNumber, rowNumber);
 
         handler = new Handler() {
             @Override
@@ -85,15 +85,16 @@ public class MapActivity extends AppCompatActivity {
                     paint.setColor(Color.GREEN);
                     Path p = new Path();
                     System.out.println(canvas.getHeight());
-                    p.moveTo(0, (8*screenSizeHight)/9);
+                    p.moveTo(0, ((((rowNumber * 3) + rowNumber + 1)-1) * screenSizeHight) / ((rowNumber * 3) + rowNumber + 1));
 
-                    for(int i=0; i<jsonArray.length();i++){
-                        addListViewItem(jsonArray.getJSONObject(i).getString("id"));
+                    for (int i = 0; i < jsonArray.length(); i++) {
                         int x = Integer.valueOf(jsonArray.getJSONObject(i).getString("columnNumber"));
                         int y = Integer.valueOf(jsonArray.getJSONObject(i).getString("rowNumber"));
-                        p.lineTo((x+1) * (screenSizeWidth) / (2 * columnNumber), screenSizeHight - y*((screenSizeHight)/9) );
-                        if(jsonArray.getJSONObject(i).getBoolean("containsRequiredProduct"))
-                            p.addCircle((x+1) * (screenSizeWidth) / (2 * columnNumber), screenSizeHight - y*((screenSizeHight)/9), 10, Path.Direction.CW);
+                        p.lineTo((x + 1) * (screenSizeWidth) / (2 * columnNumber), screenSizeHight - y * ((screenSizeHight) / ((rowNumber * 3) + rowNumber + 1)));
+                        if (jsonArray.getJSONObject(i).getBoolean("containsRequiredProduct")) {
+                            addListViewItem(jsonArray.getJSONObject(i).getString("id"));
+                            p.addCircle((x + 1) * (screenSizeWidth) / (2 * columnNumber), screenSizeHight - y * ((screenSizeHight) / ((rowNumber * 3) + rowNumber + 1)), 10, Path.Direction.CW);
+                        }
                     }
                     canvas.drawPath(p, paint);
                 } catch (JSONException e) {
@@ -102,11 +103,11 @@ public class MapActivity extends AppCompatActivity {
             }
         };
 
-        askServer(productsIds,shopId);
+        askServer(productsIds, shopId);
     }
 
     public void addListViewItem(String productName) {
-        adapter.add("Product_"+ productName);
+        adapter.add("Product_" + productName);
         adapter.notifyDataSetChanged();
         ViewGroup.LayoutParams params = productList.getLayoutParams();
         params.height = adapter.getCount() * 40;
@@ -127,13 +128,15 @@ public class MapActivity extends AppCompatActivity {
         rectanglePaint.setStyle(Paint.Style.STROKE);
 
         int numberToScreenDivideX = (screenSizeWidth) / (2 * x);
-        int numberToScreenDivideY = (screenSizeHight) / 9;
+        int numberToScreenDivideY = (screenSizeHight) / ((y * 3) + y + 1);
 
-        for (int i = 0; i < x; i++) {
-            Rect rectangle = new Rect(numberToScreenDivideX  * (i + 1) + numberToScreenDivideX * i, numberToScreenDivideY, numberToScreenDivideX * (i + 1) + numberToScreenDivideX * (i + 1), numberToScreenDivideY*4);
-            canvas.drawRect(rectangle, rectanglePaint);
-            rectangle = new Rect(numberToScreenDivideX  * (i + 1) + numberToScreenDivideX * i, numberToScreenDivideY * 5, numberToScreenDivideX  * (i + 1) + numberToScreenDivideX * (i + 1), numberToScreenDivideY*8);
-            canvas.drawRect(rectangle, rectanglePaint);
+        for (int j = 0; j < y; j++) {
+            for (int i = 0; i < x; i++) {
+                Rect rectangle = new Rect(numberToScreenDivideX * (i + 1) + numberToScreenDivideX * i, numberToScreenDivideY * (4*j+1), numberToScreenDivideX * (i + 1) + numberToScreenDivideX * (i + 1), numberToScreenDivideY * 4 * (j+1));
+                canvas.drawRect(rectangle, rectanglePaint);
+                /*rectangle = new Rect(numberToScreenDivideX * (i + 1) + numberToScreenDivideX * i, numberToScreenDivideY * 5, numberToScreenDivideX * (i + 1) + numberToScreenDivideX * (i + 1), numberToScreenDivideY * 8);
+                canvas.drawRect(rectangle, rectanglePaint);*/
+            }
         }
     }
 
@@ -148,12 +151,12 @@ public class MapActivity extends AppCompatActivity {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
-                System.out.println("ERROR BŁAD W ZAPYTANIU DO SERWERA");
-                /*String responseData = "[{\"columnNumber\":0,\"id\":302,\"shopId\":1,\"rowNumber\":1,\"containsRequiredProduct\":true},{\"columnNumber\":0,\"id\":303,\"shopId\":1,\"rowNumber\":2,\"containsRequiredProduct\":false},{\"columnNumber\":0,\"id\":304,\"shopId\":1,\"rowNumber\":3,\"containsRequiredProduct\":false},{\"columnNumber\":0,\"id\":305,\"shopId\":1,\"rowNumber\":4,\"containsRequiredProduct\":false},{\"columnNumber\":1,\"id\":318,\"shopId\":1,\"rowNumber\":4,\"containsRequiredProduct\":false},{\"columnNumber\":1,\"id\":319,\"shopId\":1,\"rowNumber\":5,\"containsRequiredProduct\":true},{\"columnNumber\":1,\"id\":319,\"shopId\":1,\"rowNumber\":5,\"containsRequiredProduct\":true}]";
+                //System.out.println("ERROR BŁAD W ZAPYTANIU DO SERWERA");
+                String responseData = "[{\"columnNumber\":0,\"id\":302,\"shopId\":1,\"rowNumber\":1,\"containsRequiredProduct\":true},{\"columnNumber\":0,\"id\":303,\"shopId\":1,\"rowNumber\":2,\"containsRequiredProduct\":false},{\"columnNumber\":0,\"id\":304,\"shopId\":1,\"rowNumber\":3,\"containsRequiredProduct\":false},{\"columnNumber\":0,\"id\":305,\"shopId\":1,\"rowNumber\":4,\"containsRequiredProduct\":false},{\"columnNumber\":1,\"id\":318,\"shopId\":1,\"rowNumber\":4,\"containsRequiredProduct\":false},{\"columnNumber\":1,\"id\":319,\"shopId\":1,\"rowNumber\":5,\"containsRequiredProduct\":true},{\"columnNumber\":1,\"id\":319,\"shopId\":1,\"rowNumber\":5,\"containsRequiredProduct\":true}]";
                 returnString[0] = responseData;
                 Message message = new Message();
                 message.obj = responseData;
-                handler.sendMessage(message);*/
+                handler.sendMessage(message);
             }
 
             @Override

@@ -33,5 +33,7 @@
     <string name="title_activity_navigation">Droga</string>
     <string name="extra_products_ids">productsIds</string>
     <string name="extra_shop_id">shopId</string>
+    <string name="extra_column_number">columnNumber</string>
+    <string name="extra_row_number">rowNumber</string>
 
 </resources>

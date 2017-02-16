@@ -46,6 +46,8 @@ public class ShopsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Cursor cursor = (Cursor) parent.getItemAtPosition(position);
                 long shopId = cursor.getLong(0);
+                int columnNumber = cursor.getInt(3);
+                int rowNumber = cursor.getInt(4);
                 String shopName = cursor.getString(1);
                 db.incrementNumberOfShopingInShop(shopName);
 
@@ -72,6 +74,8 @@ public class ShopsActivity extends AppCompatActivity {
                 intent.putExtra(getBaseContext().getString(R.string.extra_list_name), listName);
                 intent.putExtra(getBaseContext().getString(R.string.extra_products_ids), productsIds);
                 intent.putExtra(getBaseContext().getString(R.string.extra_shop_id), shopId);
+                intent.putExtra(getBaseContext().getString(R.string.extra_column_number), columnNumber);
+                intent.putExtra(getBaseContext().getString(R.string.extra_row_number), rowNumber);
                 startActivity(intent);
             }
         });
