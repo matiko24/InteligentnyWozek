@@ -43,8 +43,9 @@ public class PurchaseDBAdapter extends DBAdapter {
         Cursor cursor = db.rawQuery(selectQuery, null);
         String produstsIds = "";
         while (cursor.moveToNext()) {
-            produstsIds += String.valueOf(cursor.getLong(1)) + ";";
+            produstsIds += "productList=" + cursor.getString(2) + "&";
         }
+        produstsIds = produstsIds.substring(0, produstsIds.length()-1);
         return produstsIds;
     }
 

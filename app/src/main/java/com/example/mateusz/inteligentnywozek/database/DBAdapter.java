@@ -15,7 +15,7 @@ public class DBAdapter {
     protected final Context context;
 
     public DBAdapter(Context ctx) {
-        this.context = ctx.getApplicationContext();
+        this.context = ctx;
     }
 
     public SQLiteDatabase openDb() {
@@ -31,7 +31,7 @@ public class DBAdapter {
 
     private class DatabaseHelper extends SQLiteOpenHelper {
         DatabaseHelper(Context context) {
-            super(context, context.getString(R.string.database_name), null, Integer.parseInt(context.getString(R.string.database_version)));
+            super(context, "DataBase", null, 1);
         }
 
         @Override
@@ -68,16 +68,13 @@ public class DBAdapter {
                             context.getString(R.string.key_number_of_purchases) +" INTEGER DEFAULT 0)";
             db.execSQL(CREATE_SHOPS_TABLE);
 
-
-
-
             /*String products[] = new String[]{"chleb", "mleko", "woda", "jabłko", "jogurt", "bułka", "musli",
                     "banan", "jajka", "kiełbasa", "makaron", "musztarda", "sok",
                     "ryba", "mąka", "ser", "kefir", "orzeszki", "pomidory", "ogórki"};*/
 
-            String products[] = new String[120];
-            for (int i = 1; i <= 120; i++) {
-                products[i - 1] = String.valueOf(i);
+            String products[] = new String[300];
+            for (int i = 1; i <= products.length; i++) {
+                products[i - 1] = "Product_"+ String.valueOf(i);
             }
 
             for (String p : products) {
@@ -87,7 +84,7 @@ public class DBAdapter {
                 db.insert(context.getString(R.string.table_products), null, values);
             }
 
-            String shops[] = new String[]{"Tesco", "Biedronka", "Real"};
+            String shops[] = new String[]{"Biedronka", "Tesco"};
 
             for (String p : shops) {
                 ContentValues values = new ContentValues();

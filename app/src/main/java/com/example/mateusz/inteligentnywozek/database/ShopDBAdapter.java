@@ -39,7 +39,7 @@ public class ShopDBAdapter extends DBAdapter {
         return cursor;
     }
 
-    public void updateShop(String shopName) {
+    public void incrementNumberOfShopingInShop(String shopName) {
         Shop shop = getShop(shopName);
         ContentValues values = new ContentValues();
         values.put(context.getString(R.string.key_id), shop.getId());

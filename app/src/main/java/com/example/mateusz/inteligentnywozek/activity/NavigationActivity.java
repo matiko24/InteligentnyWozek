@@ -51,7 +51,7 @@ public class NavigationActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                parent.getChildAt(position).setBackgroundColor(Color.RED);
+                parent.getChildAt(position).setBackgroundColor(Color.GREEN);
             }
         });
 
@@ -75,6 +75,13 @@ public class NavigationActivity extends AppCompatActivity {
                 listView.setAdapter(adapter);
             }
         };
+
+        askServer(productsIds);
+
+    }
+
+    public String askServer(String productsIds) {
+        final String[] returnString = new String[1];
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
@@ -96,11 +103,12 @@ public class NavigationActivity extends AppCompatActivity {
                 try {
                     json = new JSONObject(responseData);
                     String result = json.getString("Result");
-
+                    returnString[0] = result;
                     Message message = new Message();
                     message.obj = result;
 
                     handler.sendMessage(message);
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -108,8 +116,7 @@ public class NavigationActivity extends AppCompatActivity {
 
             }
         });
-
-
+        return returnString[0];
     }
 
     @Override
@@ -133,10 +140,18 @@ public class NavigationActivity extends AppCompatActivity {
                 else if (tips[i].equals("S"))
                     newTips[i] = "Idź prosto";
             } else if (tips[i].substring(1).equals("WP") || tips[i].substring(1).equals("WL")) {
-                if (tips[i].substring(2).equals("L")) {
-                    newTips[i] = "Skręć w " + tips[i].substring(0, 1) + " alejkę w lewo";
+                if (tips[i + 1].length() == 2) {
+                    if (tips[i].substring(2).equals("L")) {
+                        newTips[i] = "Skręć w " + tips[i].substring(0, 1) + " alejkę w lewo";
+                    } else {
+                        newTips[i] = "Skręć w " + tips[i].substring(0, 1) + " alejkę w prawo";
+                    }
                 } else {
-                    newTips[i] = "Skręć w " + tips[i].substring(0, 1) + " alejkę w prawo";
+                    if (tips[i].substring(2).equals("L")) {
+                        newTips[i] = "Idź " + tips[i].substring(0, 1) + " alejek prosto";
+                    } else {
+                        newTips[i] = "Idź " + tips[i].substring(0, 1) + " alejek prosto";
+                    }
                 }
             } else if (tips[i].substring(0, 1).equals("S") || tips[i].substring(0, 1).equals("Z")) {
                 if (tips[i].equals("SL"))
@@ -149,14 +164,60 @@ public class NavigationActivity extends AppCompatActivity {
                     newTips[i] = "Zawróc i skręć w lewo";
             } else if (tips[i].equals("M")) {
                 newTips[i] = "KONIEC";
+            } else if (tips[i].length() > 2) {
+                if (tips[i].substring(1, 2).equals("L")) {
+                    if (tips[i].substring(2).equals("U")) {
+                        if (tips[i].substring(0, 1).equals("1"))
+                            newTips[i] = " W prawo, na początku regału po lewej stronie ";
+                        else if (tips[i].substring(0, 1).equals("2"))
+                            newTips[i] = " W prawo, w środku regału po lewej stronie ";
+                        else
+                            newTips[i] = " W prawo, na końcu regału po lewej stronie ";
+                    } else {
+                        if (tips[i].substring(0, 1).equals("1"))
+                            newTips[i] = " W lewo, na początku regału po lewej stronie ";
+                        else if (tips[i].substring(0, 1).equals("2"))
+                            newTips[i] = " W lewo, w środku regału po lewej stronie ";
+                        else
+                            newTips[i] = " W lewo, na końcu regału po lewej stronie ";
+                    }
+                } else {
+                    if (tips[i].substring(2).equals("U")) {
+                        if (tips[i].substring(0, 1).equals("1"))
+                            newTips[i] = " W prawo, na początku regału po prawej stronie ";
+                        else if (tips[i].substring(0, 1).equals("2"))
+                            newTips[i] = " W prawo, w środku regału po prawej stronie ";
+                        else
+                            newTips[i] = " W prawo, na końcu regału po prawej stronie ";
+                    } else {
+                        if (tips[i].substring(0, 1).equals("1"))
+                            newTips[i] = " W lewo, na początku regału po prawej stronie ";
+                        else if (tips[i].substring(0, 1).equals("2"))
+                            newTips[i] = " W lewo, w środku regału po prawej stronie ";
+                        else
+                            newTips[i] = " W lewo, na końcu regału po prawej stronie ";
+                    }
+                }
             } else {
-                if (tips[i].substring(1).equals("L"))
-                    newTips[i] = tips[i].substring(0, 1) + " po lewej stronie ";
-                else
-                    newTips[i] = tips[i].substring(0, 1) + " po prawej stronie ";
+                if (tips[i].substring(1).equals("L")) {
+                    if (tips[i].substring(0, 1).equals("1"))
+                        newTips[i] = "Na początku regału po lewej";
+                    else if (tips[i].substring(0, 1).equals("2"))
+                        newTips[i] = "W środku regału po lewej";
+                    else
+                        newTips[i] = "Na końcu regału po lewej";
+                } else {
+                    if (tips[i].substring(0, 1).equals("1"))
+                        newTips[i] = "Na początku regału po prawej";
+                    else if (tips[i].substring(0, 1).equals("2"))
+                        newTips[i] = "W środku regału po prawej";
+                    else
+                        newTips[i] = "Na końcu regału po prawej";
+                }
             }
+
+
         }
         return newTips;
     }
-
 }

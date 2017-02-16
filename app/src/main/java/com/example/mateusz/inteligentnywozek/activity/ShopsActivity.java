@@ -45,8 +45,9 @@ public class ShopsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Cursor cursor = (Cursor) parent.getItemAtPosition(position);
-                String s = cursor.getString(1);
-                db.updateShop(s);
+                long shopId = cursor.getLong(0);
+                String shopName = cursor.getString(1);
+                db.incrementNumberOfShopingInShop(shopName);
 
                 PurchaseDBAdapter db = new PurchaseDBAdapter(getBaseContext());
                 cursor = db.getAllPurchases(listId);
@@ -65,12 +66,13 @@ public class ShopsActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    Intent intent = new Intent(ShopsActivity.this, NavigationActivity.class);
-                    intent.putExtra(getBaseContext().getString(R.string.extra_list_id), listId);
-                    intent.putExtra(getBaseContext().getString(R.string.extra_list_name), listName);
-                    intent.putExtra(getBaseContext().getString(R.string.extra_products_ids), productsIds);
-                    startActivity(intent);
                 }
+                Intent intent = new Intent(ShopsActivity.this, MapActivity.class);
+                intent.putExtra(getBaseContext().getString(R.string.extra_list_id), listId);
+                intent.putExtra(getBaseContext().getString(R.string.extra_list_name), listName);
+                intent.putExtra(getBaseContext().getString(R.string.extra_products_ids), productsIds);
+                intent.putExtra(getBaseContext().getString(R.string.extra_shop_id), shopId);
+                startActivity(intent);
             }
         });
 

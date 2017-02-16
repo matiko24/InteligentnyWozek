@@ -48,6 +48,7 @@ public class ShoppingListsActivity extends AppCompatActivity {
                 intent.putExtra(getBaseContext().getString(R.string.extra_list_id), listId);
                 intent.putExtra(getBaseContext().getString(R.string.extra_list_name), listName);
                 String productsIds = db.getAllPurchasesString(listId);
+                System.out.println("Products ids " + productsIds);
                 intent.putExtra(getBaseContext().getString(R.string.extra_products_ids), productsIds);
                 startActivity(intent);
             }
