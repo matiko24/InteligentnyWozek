@@ -74,7 +74,7 @@ public class DBAdapter {
                     "banan", "jajka", "kiełbasa", "makaron", "musztarda", "sok",
                     "ryba", "mąka", "ser", "kefir", "orzeszki", "pomidory", "ogórki"};*/
 
-            String products[] = new String[300];
+            String products[] = new String[200];
             for (int i = 1; i <= products.length; i++) {
                 products[i - 1] = "Product_"+ String.valueOf(i);
             }
@@ -87,15 +87,15 @@ public class DBAdapter {
             }
 
             ContentValues values = new ContentValues();
-            values.put(context.getString(R.string.key_name), "Biedronka 2x20");
+            values.put(context.getString(R.string.key_name), "Tesco 2x20");
             values.put("column_number","20");
             values.put("row_number","2");
             db.insert(context.getString(R.string.table_shops), null, values);
 
             values = new ContentValues();
-            values.put(context.getString(R.string.key_name), "Lewiatan 3x10");
+            values.put(context.getString(R.string.key_name), "Lewiatan 2x10");
             values.put("column_number","10");
-            values.put("row_number","3");
+            values.put("row_number","2");
             db.insert(context.getString(R.string.table_shops), null, values);
 
 
